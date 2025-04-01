@@ -2,7 +2,6 @@ import random
 
 running = True
 chances = 0
-replay = False
 
 print("Welcome to the Number Guessing Game!")
 print("I'm thinking of a number between 1 and 100.\n")
@@ -10,6 +9,8 @@ print("I'm thinking of a number between 1 and 100.\n")
 def difLevel():
     global chances
     global running
+    valid_choice = False
+    
     difficulties = {
         "1" : 10,
         "2" : 5,
@@ -22,25 +23,25 @@ def difLevel():
         "3" : "Hard"
     }
 
-    print("Please select the difficulty level:\n")
-    print("1. Easy (10 chances)")
-    print("2. Medium (5 chances)")
-    print("3. Hard (3 chances)\n")
+    while valid_choice == False:
+        print("Please select the difficulty level:\n")
+        print("1. Easy (10 chances)")
+        print("2. Medium (5 chances)")
+        print("3. Hard (3 chances)\n")
 
-    dif_choice = input("Enter your choice: ")
-    valid_choice = False
+        dif_choice = input("Enter your choice: ")
 
-    for dif_key, dif_value in difficulties.items():
-        if dif_choice == dif_key:
-            chances = dif_value
-            for dif_name_key, dif_name in dif_names.items():
-                if dif_name_key == str(dif_value):
-                    print(f"Great! You have selected the {dif_name} difficulty level.\n")
-                    valid_choice = True
-                    break
-            break
-    if not valid_choice:
-        print("Invalid command, please enter a valid number. \n")
+        for dif_key, dif_value in difficulties.items():
+            if dif_choice == dif_key:
+                chances = dif_value
+                for dif_name_key, dif_name in dif_names.items():
+                    if dif_name_key == str(dif_value):
+                        print(f"Great! You have selected the {dif_name} difficulty level.\n")
+                        valid_choice = True
+                        break
+                break
+        if not valid_choice:
+            print("Invalid command, please enter a valid number. \n")
     
     return chances
 
@@ -89,8 +90,8 @@ def numberGame():
 
 while running:
     difLevel()
-    numberGame()
+    replay = numberGame()
     if replay:
-        numberGame()
+        continue
     else:
         running = False
